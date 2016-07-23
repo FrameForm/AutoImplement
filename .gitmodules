@@ -1,0 +1,3 @@
+[submodule "lib\\fastmember"]
+	path = lib\\fastmember
+	url = https://github.com/ChristopherSchubert/fast-member
