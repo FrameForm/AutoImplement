@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/src/FrameForm.contracts/FrameForm.Contracts.Test/bin/Debug
+/src/FrameForm.Contracs.Test/obj/Debug
+/src/FrameForm.contracts/FrameForm.Contracts.Test/obj/Debug
+/src/FrameForm.contracts/obj/Debug
+/src/FrameForm.contracts/FrameForm.Contracts/.vs/FrameForm.contracts/v14
+/src/FrameForm.contracts/.vs/FrameForm.contracts/v14
+/src/FrameForm.contracts/FrameForm.Contracts/obj/Debug
+/src/FrameForm.contracts/FrameForm.Contracts/bin/Debug
