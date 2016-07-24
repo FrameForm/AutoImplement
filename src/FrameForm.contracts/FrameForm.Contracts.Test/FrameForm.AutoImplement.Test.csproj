@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76034A8C-242B-4B57-87BF-27AF4095CC31}</ProjectGuid>
+    <ProjectGuid>{7520B194-2F3C-4E62-AF8B-5EA82E558943}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameForm.Contracts</RootNamespace>
-    <AssemblyName>FrameForm.Contracts</AssemblyName>
+    <RootNamespace>FrameForm.AutoImplement.Test</RootNamespace>
+    <AssemblyName>FrameForm.AutoImplement.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,16 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute\FulfillmentContract.cs" />
-    <Compile Include="Attribute\FulfillmentContractProperty.cs" />
-    <Compile Include="Extension\ContractExtensions.cs" />
-    <Compile Include="Model\ContractValidationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\ContractFulfiller.cs" />
-    <Compile Include="Utility\FulfillmentFactory.cs" />
+    <Compile Include="Resource\ITestInterface[T}.cs" />
+    <Compile Include="Resource\ITestInterface.cs" />
+    <Compile Include="Utility\TypeMetaExtractorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Interface\" />
+    <Folder Include="Attribute\" />
+    <Folder Include="Extension\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FrameForm.Contracts\FrameForm.AutoImplement.csproj">
+      <Project>{76034a8c-242b-4b57-87bf-27af4095cc31}</Project>
+      <Name>FrameForm.AutoImplement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

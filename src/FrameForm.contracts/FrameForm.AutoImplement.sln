@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameForm.Contracts", "FrameForm.Contracts\FrameForm.Contracts.csproj", "{76034A8C-242B-4B57-87BF-27AF4095CC31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameForm.AutoImplement", "FrameForm.Contracts\FrameForm.AutoImplement.csproj", "{76034A8C-242B-4B57-87BF-27AF4095CC31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameForm.Contracts.Test", "FrameForm.Contracts.Test\FrameForm.Contracts.Test.csproj", "{7520B194-2F3C-4E62-AF8B-5EA82E558943}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastMember", "..\..\lib\fastmember\FastMember\FastMember.csproj", "{3681AB91-8F99-41BE-93C6-FCE3C49704DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameForm.AutoImplement.Test", "FrameForm.Contracts.Test\FrameForm.AutoImplement.Test.csproj", "{7520B194-2F3C-4E62-AF8B-5EA82E558943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

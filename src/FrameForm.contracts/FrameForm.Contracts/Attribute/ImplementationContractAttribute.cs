@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace FrameForm.Contracts.Attribute
+namespace FrameForm.AutoImplement.Attribute
 {
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class)]
-    public class FulfillmentContract : System.Attribute, IEquatable<FulfillmentContract>
+    public class ImplementationContractAttribute : System.Attribute, IEquatable<ImplementationContractAttribute>
     {
-        public FulfillmentContract(string contractKey)
+        public ImplementationContractAttribute(string contractKey)
         {
             ContractKey = contractKey;
         }
         
         public string ContractKey { get; set; }
 
-        public bool Equals(FulfillmentContract other)
+        public bool Equals(ImplementationContractAttribute other)
         {
             return string.Equals(ContractKey, other.ContractKey, StringComparison.CurrentCultureIgnoreCase);
         }
