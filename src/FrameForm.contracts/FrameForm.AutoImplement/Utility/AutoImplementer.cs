@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Data;
+using System.Collections.Generic;
+using System.Linq;
 using FrameForm.AutoImplement.Interface;
-using FrameForm.AutoImplement.Model;
 
 namespace FrameForm.AutoImplement.Utility
 {
@@ -11,7 +11,7 @@ namespace FrameForm.AutoImplement.Utility
 
         private AutoImplementer()
         {
-            
+
         }
 
         #endregion
@@ -20,12 +20,25 @@ namespace FrameForm.AutoImplement.Utility
 
         private static AutoImplementer _instance;
         private static readonly object InstanceLock = new object();
+        private static readonly ImplementationBuilder Builder = new ImplementationBuilder();
+
+        private static readonly Dictionary<Type, Type> TypeDictionary = new Dictionary<Type, Type>();
 
         #endregion
 
+        #region Internal Methods
+
+        internal static void ResetInstance()
+        {
+            _instance = null;
+        }
+
+        #endregion
+
+
         #region Public Methods
 
-        public static IAutoImplementer GetFulfiller()
+        public static IAutoImplementer GetImplementer()
         {
             if (_instance == null)
             {
@@ -41,13 +54,45 @@ namespace FrameForm.AutoImplement.Utility
             return _instance;
         }
 
-        internal static ContractValidationResult ValidateContract<T>()
-            where T : class 
+        public T Implement<T>()
+            where T: class
         {
-            throw new NotImplementedException();
+            Type implementation;
+            var providedType = typeof (T);
+
+            if (!providedType.IsPublic)
+            {
+                throw new NotSupportedException("Interface must be public.");
+            }
+            
+
+            if (!TypeDictionary.ContainsKey(providedType))
+            {
+                lock (InstanceLock)
+                {
+                    if (!TypeDictionary.ContainsKey(providedType))
+                    {
+                        implementation = Builder.BuildImplementation(providedType);
+
+                        TypeDictionary.Add(providedType, implementation);
+                    }
+                    else
+                    {
+                        implementation = TypeDictionary[providedType];
+                    }
+                }
+            }
+            else
+            {
+                implementation = TypeDictionary[providedType];
+            }
+
+            return Activator.CreateInstance(implementation) as T;
+
         }
 
-        #endregion
-}
 
+        #endregion
     }
+
+}

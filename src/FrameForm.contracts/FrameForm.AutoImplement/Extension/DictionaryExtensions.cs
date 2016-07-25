@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FrameForm.AutoImplement.Extension
 {
@@ -33,5 +34,6 @@ namespace FrameForm.AutoImplement.Extension
                 }
             }
         }
+
     }
 }

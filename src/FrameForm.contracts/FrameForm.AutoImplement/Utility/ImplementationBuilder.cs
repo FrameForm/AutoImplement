@@ -1,59 +1,154 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading;
 
 namespace FrameForm.AutoImplement.Utility
 {
-    class ImplementationBuilder
+    internal class ImplementationBuilder
     {
-        private static void BuildProperty(TypeBuilder typeBuilder, string name, Type type, bool get = true, bool set = true)
+        #region Constructors
+
+        static ImplementationBuilder()
         {
-            var field = typeBuilder.DefineField("m" + name, type, FieldAttributes.Private);
-            var propertyBuilder = typeBuilder.DefineProperty(name, PropertyAttributes.None, type, null);
+            var assembly = new AssemblyName("FrameForm.AutoImplement.Generated");
+            var assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(assembly, AssemblyBuilderAccess.Run);
+            ModuleBuilder = assemblyBuilder.DefineDynamicModule("AutoImplementModule");
+        }
+
+        #endregion
+
+        #region Private Fields
+
+        private static readonly ModuleBuilder ModuleBuilder;
+
+        #endregion
+
+        #region Internal Methods
+
+        internal Type BuildImplementation(Type interfaceType)
+        {
+            var typeBuilder = ModuleBuilder.DefineType($"{interfaceType.Name}_Generated",
+                TypeAttributes.Class);
+            
+            var propMethods = new HashSet<string>();
+            foreach (var property in interfaceType.GetProperties())
+            {
+                if (property.CanRead)
+                {
+                    propMethods.Add($"get_{property.Name}");
+                }
+                if (property.CanWrite)
+                {
+                    propMethods.Add($"set_{property.Name}");
+                }
+
+                BuildProperty(typeBuilder, property);
+            }
+            
+
+            var methods = interfaceType.GetMethods();
+            foreach (var method in methods.Where(method => !propMethods.Contains(method.Name)))
+            {
+                BuildMethod(typeBuilder, method);
+            }
+
+            foreach (var mEvent in interfaceType.GetEvents())
+            {
+                BuildEvent(typeBuilder, mEvent);
+            }
+            
+            typeBuilder.AddInterfaceImplementation(interfaceType);
+
+            return typeBuilder.CreateType();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void BuildProperty(TypeBuilder typeBuilder, PropertyInfo property)
+        {
+            var field = typeBuilder.DefineField("m" + property.Name, property.PropertyType, FieldAttributes.Private);
+            var propertyBuilder = typeBuilder.DefineProperty(property.Name, PropertyAttributes.None, property.PropertyType, null);
 
             var getSetAttr = MethodAttributes.Public | MethodAttributes.HideBySig |
                              MethodAttributes.SpecialName | MethodAttributes.Virtual;
 
-            if (get)
+            if (property.CanRead)
             {
-                var getter = typeBuilder.DefineMethod("get_" + name, getSetAttr, type, Type.EmptyTypes);
+                var getter = typeBuilder.DefineMethod("get_" + property.Name, getSetAttr, property.PropertyType, Type.EmptyTypes);
 
-                var getIL = getter.GetILGenerator();
-                getIL.Emit(OpCodes.Ldarg_0);
-                getIL.Emit(OpCodes.Ldfld, field);
-                getIL.Emit(OpCodes.Ret);
+                var getIl = getter.GetILGenerator();
+                getIl.Emit(OpCodes.Ldarg_0);
+                getIl.Emit(OpCodes.Ldfld, field);
+                getIl.Emit(OpCodes.Ret);
 
                 propertyBuilder.SetGetMethod(getter);
             }
-            if (set)
+            if (property.CanWrite)
             {
-                var setter = typeBuilder.DefineMethod("set_" + name, getSetAttr, null, new Type[] { type });
+                var setter = typeBuilder.DefineMethod("set_" + property.Name, getSetAttr, null, new Type[] { property.PropertyType });
 
-                var setIL = setter.GetILGenerator();
-                setIL.Emit(OpCodes.Ldarg_0);
-                setIL.Emit(OpCodes.Ldarg_1);
-                setIL.Emit(OpCodes.Stfld, field);
-                setIL.Emit(OpCodes.Ret);
+                var setIl = setter.GetILGenerator();
+                setIl.Emit(OpCodes.Ldarg_0);
+                setIl.Emit(OpCodes.Ldarg_1);
+                setIl.Emit(OpCodes.Stfld, field);
+                setIl.Emit(OpCodes.Ret);
 
                 propertyBuilder.SetSetMethod(setter);
             }
         }
 
-        private static void BuildMethod(TypeBuilder typeBuilder, string name, bool varArgs)
+        private void BuildMethod(TypeBuilder typeBuilder, MethodInfo method)
         {
-            var methodBuilder = typeBuilder.DefineMethod(name, MethodAttributes.Public, 
-                varArgs ? CallingConventions.HasThis | CallingConventions.VarArgs : CallingConventions.HasThis);
+            var returnParam = method.ReturnType;
+            var methodBuilder = typeBuilder.DefineMethod(method.Name, 
+                MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.NewSlot,
+                method.CallingConvention, returnParam,
+                method.GetParameters().Select(param => param.ParameterType).ToArray());
+            
+            var methodIl = methodBuilder.GetILGenerator();
 
-        
-            //methodBuilder.Create
+            if (returnParam != typeof (void))
+            {
+                methodIl.DeclareLocal(returnParam, true);
+
+                if (returnParam.IsValueType)
+                {
+                    methodIl.Emit(OpCodes.Ldc_I4_0);
+                    methodIl.Emit(OpCodes.Stloc_0);
+                    methodIl.Emit(OpCodes.Ldloc_0);
+                    methodIl.Emit(OpCodes.Ret);
+                }
+                else
+                {
+                    methodIl.Emit(OpCodes.Ldnull);
+                    methodIl.Emit(OpCodes.Stloc_0);
+                    methodIl.Emit(OpCodes.Ldloc_0);
+                    methodIl.Emit(OpCodes.Ret);
+                }
+            }
+            else
+            {
+                methodIl.Emit(OpCodes.Ret);
+            }
+
         }
 
-        private static void BuildEvent(TypeBuilder typeBuilder, string name, Type type)
+        private void BuildEvent(TypeBuilder typeBuilder, EventInfo myEvent)
         {
-            var eventBuilder = typeBuilder.DefineEvent(name, EventAttributes.None, type);
+            typeBuilder.DefineEvent(myEvent.Name, EventAttributes.None, myEvent.EventHandlerType);
+        }
 
-            var eventAtt = MethodAttributes.Public;
+        private void BuildGenericTypeParameters(TypeBuilder typeBuilder, string[] names)
+        {
 
         }
+
+        #endregion
     }
 }

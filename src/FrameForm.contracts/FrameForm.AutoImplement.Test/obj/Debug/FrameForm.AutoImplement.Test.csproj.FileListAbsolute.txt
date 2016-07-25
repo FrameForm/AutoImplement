@@ -1,0 +1,11 @@
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\obj\Debug\FrameForm.AutoImplement.Test.csprojResolveAssemblyReference.cache
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\FrameForm.AutoImplement.Test.dll
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\FrameForm.AutoImplement.Test.pdb
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\FrameForm.AutoImplement.dll
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\nunit.framework.dll
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\FrameForm.AutoImplement.pdb
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\nunit.framework.xml
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\obj\Debug\FrameForm.AutoImplement.Test.dll
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\obj\Debug\FrameForm.AutoImplement.Test.pdb
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\dotMemory.Unit.dll
+C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement.Test\bin\Debug\dotMemory.Unit.xml
