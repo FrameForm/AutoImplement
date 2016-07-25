@@ -1,5 +1,0 @@
-C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement\obj\Debug\FrameForm.AutoImplement.csprojResolveAssemblyReference.cache
-C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement\bin\Debug\FrameForm.AutoImplement.dll
-C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement\bin\Debug\FrameForm.AutoImplement.pdb
-C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement\obj\Debug\FrameForm.AutoImplement.dll
-C:\Users\cschubert\Source\Repos\AutoImplement\src\FrameForm.contracts\FrameForm.AutoImplement\obj\Debug\FrameForm.AutoImplement.pdb
