@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using FrameForm.AutoImplement.Interface;
 
 namespace FrameForm.AutoImplement.Utility
@@ -34,7 +33,6 @@ namespace FrameForm.AutoImplement.Utility
         }
 
         #endregion
-
 
         #region Public Methods
 

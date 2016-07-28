@@ -23,5 +23,6 @@ Roadmap
 - [ ] Methods (Action/Func execution)
 - [ ] Events
 - [ ] Events (OnEvent() via Action)
-- [ ] Generic interfaces
+- [x] Generic interfaces
 - [ ] Generic methods
+- [ ] Indexers

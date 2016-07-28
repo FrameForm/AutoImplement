@@ -1,5 +1,4 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -106,18 +105,66 @@ namespace FrameForm.AutoImplement.Utility
         private void BuildMethod(TypeBuilder typeBuilder, MethodInfo method)
         {
             var returnParam = method.ReturnType;
+            var parameters = method.GetParameters().Select(param => param.ParameterType).ToArray();
             var methodBuilder = typeBuilder.DefineMethod(method.Name, 
                 MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.NewSlot,
-                method.CallingConvention, returnParam,
-                method.GetParameters().Select(param => param.ParameterType).ToArray());
+                method.CallingConvention);
+
+            if (method.IsGenericMethod)
+            {
+                var genArgs = method.GetGenericArguments();
+
+                var genBuilders = methodBuilder.DefineGenericParameters(genArgs.Select(arg => arg.Name).ToArray());
+
+                for (var genArgIndex = 0; genArgIndex < genArgs.Length; genArgIndex++)
+                {
+                    genBuilders[genArgIndex].SetGenericParameterAttributes(genArgs[genArgIndex].GenericParameterAttributes);
+                }
+
+                methodBuilder.MakeGenericMethod(genBuilders);
+
+                if (parameters.Length > 0)
+                {
+                    List<Type> methodParams = new List<Type>();
+                    foreach (var param in parameters)
+                    {
+                        if (param.IsGenericParameter)
+                        {
+                            methodParams.Add(genBuilders.First(genBuilder => genBuilder.Name == param.Name));
+                        }
+                        else
+                        {
+                            methodParams.Add(param);
+                        }
+                    }
+
+                    methodBuilder.SetParameters(methodParams.ToArray());
+                }
+                methodBuilder.SetReturnType(genBuilders.First(genBuilder => genBuilder.Name == returnParam.Name));
+            }
+            else
+            {
+                methodBuilder.SetParameters(parameters);
+                methodBuilder.SetReturnType(returnParam);
+            }
             
             var methodIl = methodBuilder.GetILGenerator();
 
             if (returnParam != typeof (void))
             {
-                methodIl.DeclareLocal(returnParam, true);
+                methodIl.DeclareLocal(returnParam, false);
 
-                if (returnParam.IsValueType)
+                if (returnParam.ContainsGenericParameters)
+                {
+                    methodIl.DeclareLocal(returnParam, false);
+                    methodIl.Emit(OpCodes.Ldloca_S);
+                    methodIl.Emit(OpCodes.Initobj, returnParam);
+                    methodIl.Emit(OpCodes.Ldloc_0);
+                    methodIl.Emit(OpCodes.Stloc_0);
+                    methodIl.Emit(OpCodes.Ldloc_1);
+                    methodIl.Emit(OpCodes.Ret);
+                }
+                else if (returnParam.IsValueType)
                 {
                     methodIl.Emit(OpCodes.Ldc_I4_0);
                     methodIl.Emit(OpCodes.Stloc_0);
@@ -136,7 +183,6 @@ namespace FrameForm.AutoImplement.Utility
             {
                 methodIl.Emit(OpCodes.Ret);
             }
-
         }
 
         private void BuildEvent(TypeBuilder typeBuilder, EventInfo myEvent)
@@ -144,10 +190,6 @@ namespace FrameForm.AutoImplement.Utility
             typeBuilder.DefineEvent(myEvent.Name, EventAttributes.None, myEvent.EventHandlerType);
         }
 
-        private void BuildGenericTypeParameters(TypeBuilder typeBuilder, string[] names)
-        {
-
-        }
 
         #endregion
     }
