@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{76034A8C-242B-4B57-87BF-27AF4095CC31}</ProjectGuid>
+    <ProjectGuid>{7520B194-2F3C-4E62-AF8B-5EA82E558943}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FrameForm.AutoImplement</RootNamespace>
-    <AssemblyName>FrameForm.AutoImplement</AssemblyName>
+    <RootNamespace>AutoFrame.AutoImplement.Test</RootNamespace>
+    <AssemblyName>AutoFrame.AutoImplement.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotMemory.Unit, Version=103.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.dotMemoryUnit.2.3.20160517.113140\lib\dotMemory.Unit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.1.12217, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,15 +48,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute\ImplementationContractAttribute.cs" />
-    <Compile Include="Attribute\ImplementationContractPropertyAttribute.cs" />
-    <Compile Include="Extension\DictionaryExtensions.cs" />
-    <Compile Include="Interface\IAutoImplementer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\AutoImplementer.cs" />
-    <Compile Include="Utility\ImplementationBuilder.cs" />
+    <Compile Include="Resource\IBasicInterface[T1,T2,T3,T4].cs" />
+    <Compile Include="Resource\IGenericMethodInterface.cs" />
+    <Compile Include="Resource\ICollectionInterface.cs" />
+    <Compile Include="Resource\IEnumInterface.cs" />
+    <Compile Include="Resource\IEventInterface.cs" />
+    <Compile Include="Resource\IGenericCollectionInterface.cs" />
+    <Compile Include="Resource\IIndexedInterface.cs" />
+    <Compile Include="Resource\IIndexedInterface[T].cs" />
+    <Compile Include="Resource\IBasicInterface[T].cs" />
+    <Compile Include="Resource\IBasicInterface.cs" />
+    <Compile Include="Resource\IParamsOverloadInterface.cs" />
+    <Compile Include="Resource\IParamsInterface.cs" />
+    <Compile Include="Utility\AutoImplementerTest.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Attribute\" />
+    <Folder Include="Extension\" />
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoFrame.AutoImplement\AutoFrame.AutoImplement.csproj">
+      <Project>{76034a8c-242b-4b57-87bf-27af4095cc31}</Project>
+      <Name>AutoFrame.AutoImplement</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

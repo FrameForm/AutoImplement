@@ -104,67 +104,39 @@ namespace FrameForm.AutoImplement.Utility
 
         private void BuildMethod(TypeBuilder typeBuilder, MethodInfo method)
         {
-            var returnParam = method.ReturnType;
-            var parameters = method.GetParameters().Select(param => param.ParameterType).ToArray();
+            var returnParam = method.ReturnParameter;
+            var parameters = method.GetParameters();
             var methodBuilder = typeBuilder.DefineMethod(method.Name, 
                 MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig | MethodAttributes.NewSlot,
-                method.CallingConvention);
+                method.CallingConvention, returnParam.ParameterType, parameters.Select(param => param.ParameterType).ToArray());
 
-            if (method.IsGenericMethod)
+            if (method.IsGenericMethodDefinition)
             {
-                var genArgs = method.GetGenericArguments();
+                var genericArguments = method.GetGenericArguments();
 
-                var genBuilders = methodBuilder.DefineGenericParameters(genArgs.Select(arg => arg.Name).ToArray());
+                var paramBuilders = methodBuilder.DefineGenericParameters(genericArguments.Select(arg => arg.Name).ToArray());
 
-                for (var genArgIndex = 0; genArgIndex < genArgs.Length; genArgIndex++)
+                for (var i = 0; i < genericArguments.Length; i++)
                 {
-                    genBuilders[genArgIndex].SetGenericParameterAttributes(genArgs[genArgIndex].GenericParameterAttributes);
+                    paramBuilders[0].SetGenericParameterAttributes(genericArguments[0].GenericParameterAttributes);
                 }
-
-                methodBuilder.MakeGenericMethod(genBuilders);
-
-                if (parameters.Length > 0)
-                {
-                    List<Type> methodParams = new List<Type>();
-                    foreach (var param in parameters)
-                    {
-                        if (param.IsGenericParameter)
-                        {
-                            methodParams.Add(genBuilders.First(genBuilder => genBuilder.Name == param.Name));
-                        }
-                        else
-                        {
-                            methodParams.Add(param);
-                        }
-                    }
-
-                    methodBuilder.SetParameters(methodParams.ToArray());
-                }
-                methodBuilder.SetReturnType(genBuilders.First(genBuilder => genBuilder.Name == returnParam.Name));
             }
-            else
-            {
-                methodBuilder.SetParameters(parameters);
-                methodBuilder.SetReturnType(returnParam);
-            }
-            
             var methodIl = methodBuilder.GetILGenerator();
 
-            if (returnParam != typeof (void))
+            if (returnParam.ParameterType != typeof (void))
             {
-                methodIl.DeclareLocal(returnParam, false);
+                methodIl.DeclareLocal(returnParam.ParameterType, true);
 
-                if (returnParam.ContainsGenericParameters)
+                if (returnParam.ParameterType.ContainsGenericParameters)
                 {
-                    methodIl.DeclareLocal(returnParam, false);
                     methodIl.Emit(OpCodes.Ldloca_S);
-                    methodIl.Emit(OpCodes.Initobj, returnParam);
+                    methodIl.Emit(OpCodes.Initobj, returnParam.ParameterType);
                     methodIl.Emit(OpCodes.Ldloc_0);
                     methodIl.Emit(OpCodes.Stloc_0);
                     methodIl.Emit(OpCodes.Ldloc_1);
                     methodIl.Emit(OpCodes.Ret);
                 }
-                else if (returnParam.IsValueType)
+                else if (returnParam.ParameterType.IsValueType)
                 {
                     methodIl.Emit(OpCodes.Ldc_I4_0);
                     methodIl.Emit(OpCodes.Stloc_0);
