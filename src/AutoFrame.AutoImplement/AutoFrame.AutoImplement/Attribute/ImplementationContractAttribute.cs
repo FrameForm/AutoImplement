@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FrameForm.AutoImplement.Attribute
+namespace AutoFrame.AutoImplement.Attribute
 {
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class)]
     public class ImplementationContractAttribute : System.Attribute, IEquatable<ImplementationContractAttribute>

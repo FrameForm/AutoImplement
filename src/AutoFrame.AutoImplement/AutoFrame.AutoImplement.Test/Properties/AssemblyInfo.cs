@@ -4,13 +4,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FrameForm.Contracts.Test")]
+[assembly: AssemblyTitle("AutoFrame.AutoImplement.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FrameForm.Contracts.Test")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyProduct("AutoFrame.AutoImplement.Test")]
+[assembly: AssemblyCopyright("Copyright © AutoFrame 2016")]
+[assembly: AssemblyTrademark("AutoFrame")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

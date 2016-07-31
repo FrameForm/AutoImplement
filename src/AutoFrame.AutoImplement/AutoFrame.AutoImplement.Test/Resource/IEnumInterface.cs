@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace FrameForm.AutoImplement.Test.Resource
+namespace AutoFrame.AutoImplement.Test.Resource
 {
     interface IEnumInterface
     {

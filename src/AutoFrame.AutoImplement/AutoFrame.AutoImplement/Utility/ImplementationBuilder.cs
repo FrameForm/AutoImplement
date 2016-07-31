@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 
-namespace FrameForm.AutoImplement.Utility
+namespace AutoFrame.AutoImplement.Utility
 {
     internal class ImplementationBuilder
     {

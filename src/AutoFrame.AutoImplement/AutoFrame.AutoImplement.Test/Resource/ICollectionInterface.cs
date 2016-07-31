@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace FrameForm.AutoImplement.Test.Resource
+namespace AutoFrame.AutoImplement.Test.Resource
 {
     interface ICollectionInterface
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FrameForm.AutoImplement.Test.Resource
+namespace AutoFrame.AutoImplement.Test.Resource
 {
     public interface IIndexedInterface
     {

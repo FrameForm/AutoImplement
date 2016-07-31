@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FrameForm.AutoImplement.Attribute
+namespace AutoFrame.AutoImplement.Attribute
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ImplementationContractPropertyAttribute : System.Attribute

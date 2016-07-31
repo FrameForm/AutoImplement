@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
-using FrameForm.AutoImplement.Interface;
-using FrameForm.AutoImplement.Test.Resource;
-using FrameForm.AutoImplement.Utility;
+using AutoFrame.AutoImplement.Interface;
+using AutoFrame.AutoImplement.Test.Resource;
+using AutoFrame.AutoImplement.Utility;
 using NUnit.Framework;
 
-namespace FrameForm.AutoImplement.Test.Utility
+namespace AutoFrame.AutoImplement.Test.Utility
 {
     [TestFixture]
     class AutoImplementerTest

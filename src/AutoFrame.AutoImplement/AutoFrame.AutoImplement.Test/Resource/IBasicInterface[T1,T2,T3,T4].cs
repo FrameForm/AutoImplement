@@ -1,4 +1,4 @@
-﻿namespace FrameForm.AutoImplement.Test.Resource
+﻿namespace AutoFrame.AutoImplement.Test.Resource
 {
     public interface IBasicInterface<out T1,T2,T3, in T4>
         where T1: new()

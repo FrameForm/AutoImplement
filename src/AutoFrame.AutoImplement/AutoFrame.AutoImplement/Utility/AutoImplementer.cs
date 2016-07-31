@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using FrameForm.AutoImplement.Interface;
+using System.Security.Cryptography;
+using AutoFrame.AutoImplement.Interface;
 
-namespace FrameForm.AutoImplement.Utility
+namespace AutoFrame.AutoImplement.Utility
 {
+    /// <summary>
+    /// Extracts metadata about interfaces and uses it to build a type that fulfills the interface, and instantiate it.
+    /// </summary>
     public sealed class AutoImplementer : IAutoImplementer
     {
         #region Constructors
@@ -18,6 +22,7 @@ namespace FrameForm.AutoImplement.Utility
         #region Private Fields
 
         private static AutoImplementer _instance;
+        private static IAutoImplementer _injected;
         private static readonly object InstanceLock = new object();
         private static readonly ImplementationBuilder Builder = new ImplementationBuilder();
 
@@ -26,7 +31,9 @@ namespace FrameForm.AutoImplement.Utility
         #endregion
 
         #region Internal Methods
-
+        /// <summary>
+        /// Used for testing to ensure a new instance is created each test.
+        /// </summary>
         internal static void ResetInstance()
         {
             _instance = null;
@@ -36,8 +43,27 @@ namespace FrameForm.AutoImplement.Utility
 
         #region Public Methods
 
+        /// <summary>
+        /// Can be used to inject a mock <see cref="IAutoImplementer"/> for testing.
+        /// </summary>
+        /// <param name="instance"></param>
+        public static void Inject(IAutoImplementer instance)
+        {
+            _injected = instance;
+        }
+
+        /// <summary>
+        /// Returns a singleton instance of IAutoImplementer.  
+        /// If an instance has been injeced via <see cref="Inject"/> then that instance will be returned.
+        /// </summary>
+        /// <returns>An <see cref="IAutoImplementer"/>.</returns>
         public static IAutoImplementer GetImplementer()
         {
+            if (_injected != null)
+            {
+                return _injected;
+            }
+
             if (_instance == null)
             {
                 lock (InstanceLock)

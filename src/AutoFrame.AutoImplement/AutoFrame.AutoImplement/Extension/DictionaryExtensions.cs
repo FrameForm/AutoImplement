@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FrameForm.AutoImplement.Extension
+namespace AutoFrame.AutoImplement.Extension
 {
     public static class DictionaryExtensions
     {
