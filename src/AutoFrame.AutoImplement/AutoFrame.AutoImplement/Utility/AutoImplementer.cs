@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using AutoFrame.AutoImplement.Interface;
 
 namespace AutoFrame.AutoImplement.Utility
@@ -113,6 +112,14 @@ namespace AutoFrame.AutoImplement.Utility
 
             return Activator.CreateInstance(implementation) as T;
 
+        }
+
+        public T Implement<T>(string valueSetKey)
+            where T: class 
+        {
+            var instance = Implement<T>();
+
+            return instance;
         }
 
 

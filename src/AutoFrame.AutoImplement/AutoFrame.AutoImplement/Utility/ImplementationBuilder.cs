@@ -4,6 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
+using AutoFrame.AutoImplement.Attribute;
+using AutoFrame.AutoImplement.Exceptions;
+using AutoFrame.AutoImplement.Extension;
+using FastMember;
 
 namespace AutoFrame.AutoImplement.Utility
 {
@@ -28,12 +32,32 @@ namespace AutoFrame.AutoImplement.Utility
 
         #region Internal Methods
 
-        internal Type BuildImplementation(Type interfaceType)
+        internal Type BuildImplementation(Type interfaceType, string memberSetKey = null)
         {
             var typeBuilder = ModuleBuilder.DefineType($"{interfaceType.Name}_Generated",
                 TypeAttributes.Class);
+
+
+            var interfaceAttribute = interfaceType.ExtractAutoImplementAttribute();
+
+            var hasDefinedPropertySet = false;
+
+            if (interfaceAttribute != null && interfaceAttribute.MemberSetKeys.Count > 0 & memberSetKey != null)
+            {
+                if (!interfaceAttribute.MemberSetKeys.Contains(memberSetKey))
+                {
+                    throw new InvalidMemberSetKeyException(memberSetKey, interfaceAttribute.MemberSetKeys.ToArray(), interfaceType);
+                }
+
+                hasDefinedPropertySet = true;
+            }
+
+
+            TypeAccessor typeAccessor = null;  
             
             var propMethods = new HashSet<string>();
+            var propertyAssignments = new List<Action<object>>();
+
             foreach (var property in interfaceType.GetProperties())
             {
                 if (property.CanRead)
@@ -46,6 +70,9 @@ namespace AutoFrame.AutoImplement.Utility
                 }
 
                 BuildProperty(typeBuilder, property);
+
+                MapProperty(interfaceType, typeAccessor, property, memberSetKey, hasDefinedPropertySet,
+                    interfaceAttribute, propertyAssignments);
             }
             
 
@@ -102,6 +129,61 @@ namespace AutoFrame.AutoImplement.Utility
             }
         }
 
+        private void MapProperty(Type interfaceType, TypeAccessor typeAccessor, PropertyInfo property,
+            string memberSetKey, bool hasDefinedPropertySet, AutoImplementInterfaceAttribute interfaceAttribute,
+            List<Action<object>> propertyAssignments)
+        {
+            var propertyAttributes = property.ExtractAutoImplementAttributes();
+
+            if (propertyAttributes.Length == 0)
+            {
+                return;
+            }
+            
+            if (typeAccessor == null)
+            {
+                typeAccessor = TypeAccessor.Create(interfaceType);
+            }
+
+            if (propertyAttributes.Length == 1)
+            {
+                var attribute = propertyAttributes[0];
+
+                if (hasDefinedPropertySet)
+                {
+                    if ((attribute.PropertySetName == null || attribute.PropertySetName != memberSetKey)
+                        && !interfaceAttribute.AllowUnmappedMembers)
+                    {
+                        throw new UnmappedMemberException(interfaceType, memberSetKey, property.Name);
+                    }
+                }
+                else
+                {
+                    if (attribute.DefaultValueType.IsCastableTo(property.PropertyType))
+                    {
+                        propertyAssignments.Add((obj => typeAccessor[obj, property.Name] = attribute.DefaultValue));
+                    }
+                    else
+                    {
+                        throw new InvalidPropertyDefaultTypeException(interfaceType, property.Name,
+                            property.PropertyType, attribute.DefaultValue, attribute.DefaultValueType);
+                    }
+                }
+            }
+            else
+            {
+                AutoImplementPropertyAttribute attribute;
+
+                if (hasDefinedPropertySet)
+                {
+                    foreach (var propertyAttribute in propertyAttributes)
+                    {
+                        //todo finish loop and assignment
+                    }
+                }
+            }
+            
+        }
         private void BuildMethod(TypeBuilder typeBuilder, MethodInfo method)
         {
             var returnParam = method.ReturnParameter;

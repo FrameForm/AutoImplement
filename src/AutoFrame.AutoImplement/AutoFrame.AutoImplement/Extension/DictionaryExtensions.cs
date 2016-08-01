@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AutoFrame.AutoImplement.Extension
 {
-    public static class DictionaryExtensions
+    public static class CollectionExtensions
     {
         public static void CheckedAdd<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key, TValue value, object lockObj)
         {
@@ -31,6 +32,14 @@ namespace AutoFrame.AutoImplement.Extension
                 {
                     dict[key] = value;
                 }
+            }
+        }
+
+        public static void ExecuteAll(this List<Action> actionList)
+        {
+            foreach (var action in actionList)
+            {
+                action();
             }
         }
 
