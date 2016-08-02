@@ -39,10 +39,8 @@ and once implemented, the instances it generates perform the same as code you wr
 		[AutoImplementProperty("hello")]
 		string StringProperty {get; set;}
 	}
-```
-...
 
-```csharp
+	// ......
 	
 	var instance = implementer.Implement<IInterface>();
 	
