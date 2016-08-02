@@ -31,7 +31,7 @@ and once implemented, the instances it generates perform the same as code you wr
 
 |Roadmap|
 |---|
-|[x] Gettable/settable properties|(2016/07/29)|
+|- [x] Gettable/settable properties|(2016/07/29)|
 |[ ] Default values for properties||
 |[ ] Multiple sets of property default values, identified by key||
 |[x] Methods (void or default value returns)||
