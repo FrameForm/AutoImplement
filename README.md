@@ -68,11 +68,11 @@ Multiple sets of default properties can be defined, and the set selected when th
 - [x] Gettable/settable properties *(2016/07/29)*
 - [ ] Default values for properties
 - [ ] Multiple sets of property default values, identified by key
-- [x] Methods (void or default value returns)
+- [x] Methods (void or default value returns) *(2016/07/29)*
 - [ ] Methods (Action/Func execution)
 - [ ] Events
 - [ ] Events (OnEvent() via Action)
-- [x] Generic interfaces
+- [x] Generic interfaces *(2016/07/29)*
 - [ ] Generic methods
 - [ ] Indexers
 - [ ] Randomized property default value selection
