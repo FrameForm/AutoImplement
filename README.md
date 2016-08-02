@@ -11,23 +11,10 @@ and once implemented, the instances it generates perform the same as code you wr
 	
 ```
 
-#### Roadmap
-- [x] Gettable/settable properties *(2016/07/29)*
-- [ ] Default values for properties
-- [ ] Multiple sets of property default values, identified by key
-- [x] Methods (void or default value returns)
-- [ ] Methods (Action/Func execution)
-- [ ] Events
-- [ ] Events (OnEvent() via Action)
-- [x] Generic interfaces
-- [ ] Generic methods
-- [ ] Indexers
-- [ ] Randomized property default value selection
-- [ ] Randomized property default value generation
-
 
 ### Default properties
 
+Default properties can be defined via attributes, and their values assigned before your new instance is returned.
 
 ```csharp
 
@@ -47,3 +34,46 @@ and once implemented, the instances it generates perform the same as code you wr
 	Assert.AreEqual(instance.StringProperty, "hello");
 	// PASSES
 ```
+
+### Default property sets
+
+Multiple sets of default properties can be defined, and the set selected when the instance is created.
+
+```csharp
+
+	[AutoImplementInterface(allowUnmappedMembers: false, memberSetKeys: "set1", "set2", "set3")]
+	public interface ISetInterface
+	{
+		[AutoImplementProperty("set1", 100)]
+		[AutoImplementProperty("set2", 500)]
+		[AutoImplementProperty("set3", 0)]
+		int IntProperty {get; set;}
+				
+		[AutoImplementProperty("set1", "INSERT")]
+		[AutoImplementProperty("set2", "UPDATE")]
+		[AutoImplementProperty("set3", "DELETE")]
+		string StringProperty {get; set;}
+	}
+
+	// ......
+	
+	var instance = implementer.Implement<ISetInterface>("set3");
+	
+	Assert.AreEqual(instance.StringProperty, "DELETE");
+	// PASSES
+```
+
+
+#### Roadmap
+- [x] Gettable/settable properties *(2016/07/29)*
+- [ ] Default values for properties
+- [ ] Multiple sets of property default values, identified by key
+- [x] Methods (void or default value returns)
+- [ ] Methods (Action/Func execution)
+- [ ] Events
+- [ ] Events (OnEvent() via Action)
+- [x] Generic interfaces
+- [ ] Generic methods
+- [ ] Indexers
+- [ ] Randomized property default value selection
+- [ ] Randomized property default value generation

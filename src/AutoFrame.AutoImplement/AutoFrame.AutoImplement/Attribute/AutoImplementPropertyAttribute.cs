@@ -11,7 +11,7 @@ namespace AutoFrame.AutoImplement.Attribute
             DefaultValueType = defaultValue.GetType();
         }
 
-        public AutoImplementPropertyAttribute(object defaultValue, string propertySetName)
+        public AutoImplementPropertyAttribute(string propertySetName, object defaultValue)
         {
             DefaultValue = defaultValue;
             DefaultValueType = defaultValue.GetType();
