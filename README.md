@@ -11,11 +11,10 @@ and once implemented, the instances it generates perform the same as code you wr
 	
 ```
 
-
-Roadmap
-- [x] Gettable/settable properties
+#### Roadmap
+- [x] Gettable/settable properties *(2016/07/29)*
 - [ ] Default values for properties
-- [ ] Multiple sets of default values, identified by key
+- [ ] Multiple sets of property default values, identified by key
 - [x] Methods (void or default value returns)
 - [ ] Methods (Action/Func execution)
 - [ ] Events
@@ -23,3 +22,24 @@ Roadmap
 - [x] Generic interfaces
 - [ ] Generic methods
 - [ ] Indexers
+- [ ] Randomized property default value selection
+- [ ] Randomized property default value generation
+
+
+###
+
+
+|Roadmap|
+|---|
+|[x] Gettable/settable properties|(2016/07/29)|
+|[ ] Default values for properties||
+|[ ] Multiple sets of property default values, identified by key||
+|[x] Methods (void or default value returns)||
+|[ ] Methods (Action/Func execution)||
+|[ ] Events||
+|[ ] Events (OnEvent() via Action)||
+|[x] Generic interfaces||
+|[ ] Generic methods||
+|[ ] Indexers||
+|[ ] Randomized property default value selection||
+|[ ] Randomized property default value generation||

@@ -1,4 +1,4 @@
-﻿namespace AutoFrame.AutoImplement.Test.Resource
+﻿namespace AutoFrame.AutoImplement.Test.Resource.Basic
 {
     public interface IGenericMethodInterface
     {

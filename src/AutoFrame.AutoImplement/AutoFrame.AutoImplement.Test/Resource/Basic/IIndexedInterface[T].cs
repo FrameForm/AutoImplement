@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AutoFrame.AutoImplement.Test.Resource
+namespace AutoFrame.AutoImplement.Test.Resource.Basic
 {
     interface IIndexedInterface<T>
         where T: new()

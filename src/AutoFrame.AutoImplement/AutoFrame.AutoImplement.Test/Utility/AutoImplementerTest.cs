@@ -2,6 +2,8 @@
 using System.Net;
 using AutoFrame.AutoImplement.Interface;
 using AutoFrame.AutoImplement.Test.Resource;
+using AutoFrame.AutoImplement.Test.Resource.Basic;
+using AutoFrame.AutoImplement.Test.Resource.Defaults;
 using AutoFrame.AutoImplement.Utility;
 using NUnit.Framework;
 
@@ -83,6 +85,18 @@ namespace AutoFrame.AutoImplement.Test.Utility
             Assert.AreEqual(instance.SetT1T2T3Method(9999, false, Guid.Empty), 0);
             Assert.AreEqual(instance.SetT1T2T3Method(false, Guid.Empty, 9999), false);
             Assert.AreEqual(instance.SetT1T2T3Method(Guid.Empty, 9999, false), default(Guid));
+        }
+
+        [Test]
+        public void Test_IBasicDefaultInterface()
+        {
+            IBasicDefaultInterface instance = _implementer.Implement<IBasicDefaultInterface>();
+
+            instance.GuidProp = Guid.NewGuid();
+
+            Assert.AreNotEqual(instance.GuidProp, default(Guid));
+            Assert.AreEqual(instance.IntProp, 10);
+            Assert.AreEqual(instance.StringProp, "hello");
         }
     }
 }
