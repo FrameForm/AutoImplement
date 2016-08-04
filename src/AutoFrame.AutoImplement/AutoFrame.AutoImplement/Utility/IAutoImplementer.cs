@@ -1,4 +1,4 @@
-﻿namespace AutoFrame.AutoImplement.Interface
+﻿namespace AutoFrame.AutoImplement.Utility
 {
     /// <summary>
     /// Provides basic access to automatically implement an interface.
@@ -10,7 +10,7 @@
         /// </summary>
         /// <typeparam name="T">The interface you wish to implement.</typeparam>
         /// <returns>A new instance of <typeparamref name="T"/></returns>
-        T Implement<T>()
+        T Implement<T>(string memberSetKey = null)
             where T: class;
     }
 }

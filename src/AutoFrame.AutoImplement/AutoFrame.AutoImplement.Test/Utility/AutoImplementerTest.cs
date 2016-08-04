@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Net;
-using AutoFrame.AutoImplement.Interface;
-using AutoFrame.AutoImplement.Test.Resource;
 using AutoFrame.AutoImplement.Test.Resource.Basic;
 using AutoFrame.AutoImplement.Test.Resource.Defaults;
 using AutoFrame.AutoImplement.Utility;
@@ -97,6 +95,15 @@ namespace AutoFrame.AutoImplement.Test.Utility
             Assert.AreNotEqual(instance.GuidProp, default(Guid));
             Assert.AreEqual(instance.IntProp, 10);
             Assert.AreEqual(instance.StringProp, "hello");
+        }
+
+        [Test]
+        public void Test_IBasicDateTimeInterface()
+        {
+            IBasicDateTimeInterface instance = _implementer.Implement<IBasicDateTimeInterface>();
+
+            Assert.AreEqual(instance.DateTimeProp1, new DateTime(2016, 1, 1));
+            Assert.AreEqual(instance.DateTimeProp2, new DateTime(2017,1,1,12,0,0));
         }
     }
 }

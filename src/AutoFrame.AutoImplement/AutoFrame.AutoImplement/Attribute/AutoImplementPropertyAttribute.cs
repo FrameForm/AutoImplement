@@ -11,17 +11,17 @@ namespace AutoFrame.AutoImplement.Attribute
             DefaultValueType = defaultValue.GetType();
         }
 
-        public AutoImplementPropertyAttribute(string propertySetName, object defaultValue)
+        public AutoImplementPropertyAttribute(string memberSetKey, object defaultValue)
         {
             DefaultValue = defaultValue;
             DefaultValueType = defaultValue.GetType();
-            PropertySetName = propertySetName;
+            MemberSetKey = memberSetKey;
         }
-
+        
         public object DefaultValue { get; }
 
         public Type DefaultValueType { get; }
 
-        public string PropertySetName { get; }
+        public string MemberSetKey { get; }
     }
 }

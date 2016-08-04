@@ -37,7 +37,7 @@ Default properties can be defined via attributes, and their values assigned befo
 
 ### Default property sets
 
-Multiple sets of default properties can be defined, and the set selected when the instance is created.
+Multiple sets of default values can be defined, and the set selected when the instance is created.
 
 ```csharp
 
@@ -67,6 +67,7 @@ Multiple sets of default properties can be defined, and the set selected when th
 #### Roadmap
 - [x] Gettable/settable properties *(2016/07/29)*
 - [ ] Default values for properties
+- [ ] DateTime default values for properties
 - [ ] Multiple sets of property default values, identified by key
 - [x] Methods (void or default value returns) *(2016/07/29)*
 - [ ] Methods (Action/Func execution)
@@ -75,5 +76,6 @@ Multiple sets of default properties can be defined, and the set selected when th
 - [x] Generic interfaces *(2016/07/29)*
 - [ ] Generic methods
 - [ ] Indexers
-- [ ] Randomized property default value selection
-- [ ] Randomized property default value generation
+- [ ] Indexer default values defined by array
+- [ ] Randomized default value selection within provided values
+- [ ] Randomized default value generation

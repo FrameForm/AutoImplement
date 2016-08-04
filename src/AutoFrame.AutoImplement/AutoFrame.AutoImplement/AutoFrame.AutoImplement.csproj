@@ -43,29 +43,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\AutoImplementIndexerAttribute.cs" />
     <Compile Include="Attribute\AutoImplementInterfaceAttribute.cs" />
     <Compile Include="Attribute\AutoImplementEventAttribute.cs" />
     <Compile Include="Attribute\AutoImplementMethodAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementDateTimePropertyAttribute.cs" />
     <Compile Include="Attribute\AutoImplementPropertyAttribute.cs" />
     <Compile Include="Exceptions\DuplicateMemberSetKeyException.cs" />
     <Compile Include="Exceptions\InvalidPropertyDefaultTypeException.cs" />
     <Compile Include="Exceptions\InvalidMemberSetKeyException.cs" />
     <Compile Include="Exceptions\UnmappedMemberException.cs" />
     <Compile Include="Extension\DictionaryExtensions.cs" />
-    <Compile Include="Interface\IAutoImplementer.cs" />
+    <Compile Include="Utility\IAutoImplementer.cs" />
+    <Compile Include="Model\ImplementationSet.cs" />
+    <Compile Include="Model\Implementation.cs" />
+    <Compile Include="Model\ImplementationSetCollection.cs" />
+    <Compile Include="Model\PropertyMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AutoImplementer.cs" />
     <Compile Include="Extension\DefaultValueExtensions.cs" />
-    <Compile Include="Utility\ImplementationBuilder.cs" />
+    <Compile Include="Utility\Builder\Event\DefaultEventBuilder.cs" />
+    <Compile Include="Utility\Builder\Event\IEventBuilder.cs" />
+    <Compile Include="Utility\Builder\MemberBuilder.cs" />
+    <Compile Include="Utility\Builder\Method\DefaultMethodBuilder.cs" />
+    <Compile Include="Utility\Builder\Method\IMethodBuilder.cs" />
+    <Compile Include="Utility\Builder\Property\DefaultPropertyBuilder.cs" />
+    <Compile Include="Utility\Builder\Property\IPropertyBuilder.cs" />
+    <Compile Include="Utility\ImplementationSetCreator.cs" />
+    <Compile Include="Utility\Mapper\MemberMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\IPropertyMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\PropertyValueMapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\AutoFrame.Core\src\AutoFrame.Core\AutoFrame.Core\AutoFrame.Core.csproj">
+      <Project>{8E714247-8AAB-40D8-B36E-DF317E8E6B49}</Project>
+      <Name>AutoFrame.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\lib\fast-member\FastMember\FastMember.csproj">
       <Project>{3681ab91-8f99-41be-93c6-fce3c49704db}</Project>
       <Name>FastMember</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Folder Include="Utility\Mapper\Event\" />
+    <Folder Include="Utility\Mapper\Method\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

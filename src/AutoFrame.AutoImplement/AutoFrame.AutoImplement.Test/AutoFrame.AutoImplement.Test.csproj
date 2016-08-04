@@ -61,6 +61,7 @@
     <Compile Include="Resource\Basic\IBasicInterface.cs" />
     <Compile Include="Resource\Basic\IParamsOverloadInterface.cs" />
     <Compile Include="Resource\Basic\IParamsInterface.cs" />
+    <Compile Include="Resource\Defaults\IBasicDateTimeInterface.cs" />
     <Compile Include="Resource\Defaults\IRequiredInterface.cs" />
     <Compile Include="Resource\Defaults\IBasicDefaultInterface.cs" />
     <Compile Include="Resource\Defaults\IBasicSetInterface.cs" />
