@@ -1,6 +1,6 @@
 [submodule "lib/fast-member"]
 	path = lib/fast-member
 	url = https://github.com/ChristopherSchubert/fast-member
-[submodule "lib\\autoframe.core\\"]
-	path = lib\\autoframe.core\\
+[submodule "lib/AutoFrame.Core"]
+	path = lib/AutoFrame.Core
 	url = https://github.com/AutoFrame/AutoFrame.Core
