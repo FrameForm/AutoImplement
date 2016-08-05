@@ -3,11 +3,18 @@ using System.Collections.Generic;
 
 namespace AutoFrame.AutoImplement.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal class ImplementationSetCollection
     {
+        #region Private Fields
+
         private readonly Dictionary<Type, ImplementationSet> _implementationsByType = new Dictionary<Type, ImplementationSet>();
 
-        private readonly object _implementationLock = new object();
+        #endregion
+
+        #region Public Methods
 
         public bool HasBeenImplemented(Type interfaceType)
         {
@@ -18,17 +25,7 @@ namespace AutoFrame.AutoImplement.Model
         {
             if (!_implementationsByType.ContainsKey(interfaceType))
             {
-                lock (_implementationLock)
-                {
-                    if (!_implementationsByType.ContainsKey(interfaceType))
-                    {
-                        _implementationsByType.Add(interfaceType, set);
-                    }
-                    else if (updateIfExisting)
-                    {
-                        _implementationsByType[interfaceType] = set;
-                    }
-                }
+                _implementationsByType.Add(interfaceType, set);
             }
             else if (updateIfExisting)
             {
@@ -40,6 +37,7 @@ namespace AutoFrame.AutoImplement.Model
         {
             return _implementationsByType[interfaceType];
         }
-        
+
+        #endregion
     }
 }

@@ -54,6 +54,9 @@
     <Compile Include="Exceptions\InvalidMemberSetKeyException.cs" />
     <Compile Include="Exceptions\UnmappedMemberException.cs" />
     <Compile Include="Extension\DictionaryExtensions.cs" />
+    <Compile Include="Model\PropertyMappingSetCollection.cs" />
+    <Compile Include="Model\PropertyMappingSet.cs" />
+    <Compile Include="Utility\Builder\Event\OnEventBuilder.cs" />
     <Compile Include="Utility\IAutoImplementer.cs" />
     <Compile Include="Model\ImplementationSet.cs" />
     <Compile Include="Model\Implementation.cs" />
@@ -71,8 +74,9 @@
     <Compile Include="Utility\Builder\Property\IPropertyBuilder.cs" />
     <Compile Include="Utility\ImplementationSetCreator.cs" />
     <Compile Include="Utility\Mapper\MemberMapper.cs" />
-    <Compile Include="Utility\Mapper\Property\IPropertyMapper.cs" />
-    <Compile Include="Utility\Mapper\Property\PropertyValueMapper.cs" />
+    <Compile Include="Utility\Mapper\PropertyValueMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\IPropertyAttributeMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\SingleDefaultValuePropertyMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\lib\AutoFrame.Core\src\AutoFrame.Core\AutoFrame.Core\AutoFrame.Core.csproj">
@@ -85,6 +89,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Utility\Builder\Indexer\" />
     <Folder Include="Utility\Mapper\Event\" />
     <Folder Include="Utility\Mapper\Method\" />
   </ItemGroup>

@@ -67,8 +67,11 @@ namespace AutoFrame.AutoImplement.Utility
             }
             
             typeBuilder.AddInterfaceImplementation(interfaceType);
-            
 
+            var set = new ImplementationSet(interfaceType);
+            set.AddImplementedType(typeBuilder.CreateType());
+
+            return set;
         }
 
         #endregion

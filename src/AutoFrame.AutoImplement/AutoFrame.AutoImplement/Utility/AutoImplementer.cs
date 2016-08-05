@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using AutoFrame.AutoImplement.Model;
 
 namespace AutoFrame.AutoImplement.Utility
@@ -87,11 +87,25 @@ namespace AutoFrame.AutoImplement.Utility
                 throw new NotSupportedException("Interface must be public.");
             }
 
-
             var implementationSet = GetImplementationSet<T>(providedType);
 
-            //var instance =  Activator.CreateInstance(implementation) as T;
+            Type[] candidateImplementations;
 
+            if (memberSetKey == null)
+            {
+                candidateImplementations = implementationSet.NonKeyedImplementedTypes.ToArray();
+            }
+            else
+            {
+                candidateImplementations =
+                    implementationSet.KeyedImplementedTypes[memberSetKey].ToArray();
+            }
+
+            var instance =  Activator.CreateInstance(candidateImplementations.OrderBy(imp => Guid.NewGuid()).First()) as T;
+
+            FinalizeMappings(instance, implementationSet);
+
+            return instance;
         }
 
 
@@ -123,11 +137,15 @@ namespace AutoFrame.AutoImplement.Utility
             }
             else
             {
-
                 implementationSet = Implementations.GetImplementationSet(providedType);
             }
 
             return implementationSet;
+        }
+
+        private void FinalizeMappings<T>(T instance, ImplementationSet implementtionSet)
+        {
+            
         }
 
         #endregion

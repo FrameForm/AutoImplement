@@ -1,14 +1,12 @@
-﻿using AutoFrame.AutoImplement.Utility.Mapper.Property;
-
-namespace AutoFrame.AutoImplement.Utility.Mapper
+﻿namespace AutoFrame.AutoImplement.Utility.Mapper
 {
     internal class MemberMapper
     {
-        public MemberMapper(IPropertyMapper propertyMapper)
+        public MemberMapper(PropertyValueMapper propertyMapper)
         {
             PropertyMapper = propertyMapper;
         }
 
-        public IPropertyMapper PropertyMapper { get; private set; }
+        public PropertyValueMapper PropertyMapper { get; private set; }
     }
 }

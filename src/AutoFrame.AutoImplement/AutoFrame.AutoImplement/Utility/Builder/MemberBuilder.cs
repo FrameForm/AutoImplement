@@ -1,4 +1,6 @@
-﻿using AutoFrame.AutoImplement.Utility.Builder.Event;
+﻿using System;
+using AutoFrame.AutoImplement.Attribute;
+using AutoFrame.AutoImplement.Utility.Builder.Event;
 using AutoFrame.AutoImplement.Utility.Builder.Method;
 using AutoFrame.AutoImplement.Utility.Builder.Property;
 
@@ -6,17 +8,19 @@ namespace AutoFrame.AutoImplement.Utility.Builder
 {
     internal class MemberBuilder
     {
-        public MemberBuilder(IEventBuilder eventBuilder, IMethodBuilder methodBuilder, IPropertyBuilder propertyBuilder)
+        public IEventBuilder GetEventBuilder(AutoImplementEventAttribute attribute)
         {
-            EventBuilder = eventBuilder;
-            MethodBuilder = methodBuilder;
-            PropertyBuilder = propertyBuilder;
+            throw new NotImplementedException();
         }
 
-        public IEventBuilder EventBuilder { get; private set; }
+        public IPropertyBuilder GetPropertyBuilder(AutoImplementPropertyAttribute attribute)
+        {
+            throw new NotImplementedException();
+        }
 
-        public IMethodBuilder MethodBuilder { get; private set; }
-
-        public IPropertyBuilder PropertyBuilder { get; private set; }
+        public IMethodBuilder GetEventBuilder(AutoImplementMethodAttribute attribute)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
