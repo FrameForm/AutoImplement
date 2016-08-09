@@ -11,10 +11,9 @@ and once implemented, the instances it generates perform the same as code you wr
 	
 ```
 
+### Default property values
 
-### Default properties
-
-Default properties can be defined via attributes, and their values assigned before your new instance is returned.
+Default properties values can be defined via attributes, and their values assigned before your new instance is returned.
 
 ```csharp
 
@@ -25,6 +24,10 @@ Default properties can be defined via attributes, and their values assigned befo
 				
 		[AutoImplementProperty("hello")]
 		string StringProperty {get; set;}
+		
+		bool? NullableBoolProperty {get; set;}
+		
+		bool NonNullableBoolProperty {get; set;}
 	}
 
 	// ......
@@ -32,10 +35,29 @@ Default properties can be defined via attributes, and their values assigned befo
 	var instance = implementer.Implement<IInterface>();
 	
 	Assert.AreEqual(instance.StringProperty, "hello");
+	Assert.IsNull(instance.NullableBoolProperty);
+	Assert.IsFalse(instance.NonNullableBoolProperty);
 	// PASSES
 ```
 
-### Default property sets
+### DateTime default property values
+
+The same constructors available on the DateTime object are exposed for default properties via a special attribute.
+```csharp
+
+	public interface IBasicDateTimeInterface
+    {
+        [AutoImplementDateTimeProperty(2016, 01, 01)]
+        DateTime DateTimeProp1 { get; set; }
+
+        [AutoImplementDateTimeProperty(2017, 01, 01, 12, 0, 0)]
+        DateTime DateTimeProp2 { get; set; }
+    }
+	
+```
+
+
+### Default property value sets
 
 Multiple sets of default values can be defined, and the set selected when the instance is created.
 
@@ -57,24 +79,49 @@ Multiple sets of default values can be defined, and the set selected when the in
 
 	// ......
 	
-	var instance = implementer.Implement<ISetInterface>("set3");
-	
+	var instance = implementer.Implement<ISetInterface>("set3");	
 	Assert.AreEqual(instance.StringProperty, "DELETE");
+	
+	instance = implementer.Implement<ISetInterface>("set2");	
+	Assert.AreEqual(instance.StringProperty, "UPDATE");
+	
+	instance = implementer.Implement<ISetInterface>();	
+	Assert.IsNull(instance.StringProperty);	
+	
 	// PASSES
+```
+
+### Generic interfaces
+
+Interfaces with generic type parameters are supported, including constraints.
+
+```csharp
+
+	public interface IGenInterface<T1, T2>
+	where T1 : struct, T2 : new()
+	{
+		T1 PropT1 {get; set;}
+		T2 PropT2 {get; set;}
+	}
+	// ......
+	
+	var instance = implementer.Implement<IGenInterface<char, int>();
+	instance.PropT1 = 'a';
+	instance.PropT2 = 100;
 ```
 
 
 #### Roadmap
-- [x] Gettable/settable properties *(2016/07/29)*
-- [x] Default values for non Nullable<> properties
-- [ ] Default values for Nullable<> properties
-- [x] DateTime default values for properties
-- [x] Multiple sets of property default values, identified by key
-- [x] Methods (void or default value returns) *(2016/07/29)*
+- [x] Gettable/settable properties * v0.0.1 *
+- [x] Default values for non Nullable<> properties * v0.0.2 *
+- [x] Default values for Nullable<> properties * v0.0.2 *
+- [x] DateTime default values for properties * v0.0.2 *
+- [x] Multiple sets of property default values, identified by key * v0.0.2 *
+- [x] Methods (void or default value returns) * v0.0.1 *
 - [ ] Methods (Action/Func execution)
 - [ ] Events
 - [ ] Events (OnEvent() via Action)
-- [x] Generic interfaces *(2016/07/29)*
+- [x] Generic interfaces * v0.0.1 *
 - [ ] Generic methods
 - [ ] Indexers
 - [ ] Indexer default values defined by array
