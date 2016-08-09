@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace AutoFrame.AutoImplement.Utility.Builder.Event
+namespace AutoFrame.AutoImplement.Utility.Implementer.Event
 {
-    public class OnEventBuilder : IEventBuilder
+    public class OnEventImplementer : IEventImplementer
     {
         public void BuildEvent(TypeBuilder typeBuilder, EventInfo myEvent)
         {

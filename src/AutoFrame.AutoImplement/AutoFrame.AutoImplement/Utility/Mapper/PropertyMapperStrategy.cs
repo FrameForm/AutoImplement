@@ -7,13 +7,19 @@ using AutoFrame.AutoImplement.Utility.Mapper.Property;
 
 namespace AutoFrame.AutoImplement.Utility.Mapper
 {
-    internal class PropertyValueMapper
+    internal class PropertyMapperStrategy
     {
+        #region Private Fields
 
-        private readonly SingleDefaultValuePropertyMapper _singleDefaultValuePropertyMapper
-            = new SingleDefaultValuePropertyMapper();
+        private readonly SingleDefaultValuePropertyMapper _singleDefaultValuePropertyMapper = new SingleDefaultValuePropertyMapper();
 
-        public PropertyMappingSetCollection MapPropertyValues(Type interfaceType, PropertyInfo property)
+        private readonly MultipleDefaultValuePropertyMapper _multipleDefaultValuePropertyMapper = new MultipleDefaultValuePropertyMapper();
+
+        #endregion
+
+        #region Public Methods
+
+        public PropertyMappingSetCollection PreparePropertyMappings(Type interfaceType, PropertyInfo property)
         {
             var results = new PropertyMappingSetCollection();
             
@@ -21,7 +27,6 @@ namespace AutoFrame.AutoImplement.Utility.Mapper
 
             foreach (var propertyAttribute in propertyAttributes)
             {
-
                 PropertyMappingSet set;
 
                 var mapper = GetAttributeMapper(propertyAttribute);
@@ -39,10 +44,15 @@ namespace AutoFrame.AutoImplement.Utility.Mapper
                 }
 
                 set.Mappings.Add(mapping);
+                results.AddPropertyMappingSet(propertyAttribute.MemberSetKey, set, false);
             }
 
             return results;
         }
+
+        #endregion
+
+        #region Private Methods
 
         private IPropertyAttributeMapper GetAttributeMapper(AutoImplementPropertyAttribute attribute)
         {
@@ -51,7 +61,17 @@ namespace AutoFrame.AutoImplement.Utility.Mapper
             {
                 return _singleDefaultValuePropertyMapper;
             }
-            throw new NotImplementedException();
+            else if (attribute.HasProvidedValueRange)
+            {
+                return _multipleDefaultValuePropertyMapper;
+            }
+            else
+            { 
+                throw new NotImplementedException();
+            }
+            
         }
+
+        #endregion
     }
 }

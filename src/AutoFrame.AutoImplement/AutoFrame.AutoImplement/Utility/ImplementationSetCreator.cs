@@ -3,7 +3,10 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
+using AutoFrame.AutoImplement.Extension;
 using AutoFrame.AutoImplement.Model;
+using AutoFrame.AutoImplement.Utility.Implementer;
+using AutoFrame.AutoImplement.Utility.Mapper;
 
 namespace AutoFrame.AutoImplement.Utility
 {
@@ -23,6 +26,8 @@ namespace AutoFrame.AutoImplement.Utility
         #region Private Fields
 
         private static readonly ModuleBuilder ModuleBuilder;
+        private static readonly MemberImplementer MemberImplementer = new MemberImplementer();
+        private static readonly MemberMapper MemberMapper = new MemberMapper();
 
         #endregion
 
@@ -32,7 +37,9 @@ namespace AutoFrame.AutoImplement.Utility
             where T : class 
         {
             var interfaceType = typeof (T);
-
+            
+            var set = new ImplementationSet(interfaceType);
+            
             var typeBuilder = ModuleBuilder.DefineType($"{interfaceType.Name}_Generated",
                 TypeAttributes.Class);
 
@@ -49,26 +56,26 @@ namespace AutoFrame.AutoImplement.Utility
                     propMethods.Add($"set_{property.Name}");
                 }
 
-                //BuildProperty(typeBuilder, property);
+                MemberImplementer.PropertyImplementationStrategy.ImplementProperty(typeBuilder, property);
 
-                //var mappings = BuildPropertyMappings(interfaceType, property);
+                var mappingCollection = MemberMapper.PropertyMapper.PreparePropertyMappings(interfaceType, property);
+                set.PropertyMappingsCollections.Add(mappingCollection);
             }
             
             var methods = interfaceType.GetMethods();
 
             foreach (var method in methods.Where(method => !propMethods.Contains(method.Name)))
             {
-                //BuildMethod(typeBuilder, method);
+                MemberImplementer.MethodImplementationStrategy.ImplementMethod(typeBuilder, method);
             }
 
             foreach (var mEvent in interfaceType.GetEvents())
             {
-                //BuildEvent(typeBuilder, mEvent);
+                MemberImplementer.EventImplementationStrategy.ImplementEvent(typeBuilder, mEvent);
             }
             
             typeBuilder.AddInterfaceImplementation(interfaceType);
 
-            var set = new ImplementationSet(interfaceType);
             set.AddImplementedType(typeBuilder.CreateType());
 
             return set;

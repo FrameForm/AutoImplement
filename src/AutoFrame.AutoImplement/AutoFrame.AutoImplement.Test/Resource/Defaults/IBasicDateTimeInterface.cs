@@ -9,7 +9,7 @@ namespace AutoFrame.AutoImplement.Test.Resource.Defaults
         DateTime DateTimeProp1 { get; set; }
 
         [AutoImplementDateTimeProperty(2017,01,01,12,0,0)]
-        string DateTimeProp2 { get; set; }
+        DateTime DateTimeProp2 { get; set; }
 
 
     }

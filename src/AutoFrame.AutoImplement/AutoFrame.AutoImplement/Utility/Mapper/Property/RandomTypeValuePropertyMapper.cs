@@ -7,7 +7,7 @@ using FastMember;
 
 namespace AutoFrame.AutoImplement.Utility.Mapper.Property
 {
-    internal class SingleDefaultValuePropertyMapper : IPropertyAttributeMapper
+    internal class RandomTypeValuePropertyMapper : IPropertyAttributeMapper
     {
         public PropertyMapping BuildPropertyMapping(AutoImplementPropertyAttribute propertyAttribute, Type propertyType, Type interfaceType, string propertyName)
         {

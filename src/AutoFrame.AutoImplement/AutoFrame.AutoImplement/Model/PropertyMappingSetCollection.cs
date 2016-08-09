@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AutoFrame.AutoImplement.Model
 {
-    /// <summary>
-    /// 
-    /// </summary>
     internal class PropertyMappingSetCollection
     {
         #region Private Fields
 
         private readonly Dictionary<string, PropertyMappingSet> _propertyMappingsByKey = new Dictionary<string, PropertyMappingSet>();
+
+        #endregion
+
+        #region Public Properties
+
+        public IEnumerable<string> AvailableMemberSetKeys => _propertyMappingsByKey.Keys;
 
         #endregion
 
@@ -53,7 +52,12 @@ namespace AutoFrame.AutoImplement.Model
                 memberSetKey = string.Empty;
             }
 
-            return _propertyMappingsByKey[memberSetKey];
+            if (_propertyMappingsByKey.ContainsKey(memberSetKey))
+            {
+                return _propertyMappingsByKey[memberSetKey];
+            }
+
+            return null;
         }
 
         #endregion

@@ -66,9 +66,10 @@ Multiple sets of default values can be defined, and the set selected when the in
 
 #### Roadmap
 - [x] Gettable/settable properties *(2016/07/29)*
-- [ ] Default values for properties
-- [ ] DateTime default values for properties
-- [ ] Multiple sets of property default values, identified by key
+- [x] Default values for non Nullable<> properties
+- [ ] Default values for Nullable<> properties
+- [x] DateTime default values for properties
+- [x] Multiple sets of property default values, identified by key
 - [x] Methods (void or default value returns) *(2016/07/29)*
 - [ ] Methods (Action/Func execution)
 - [ ] Events
@@ -77,5 +78,6 @@ Multiple sets of default values can be defined, and the set selected when the in
 - [ ] Generic methods
 - [ ] Indexers
 - [ ] Indexer default values defined by array
+- [ ] Colletion property defaults defined by array
 - [ ] Randomized default value selection within provided values
 - [ ] Randomized default value generation

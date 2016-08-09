@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace AutoFrame.AutoImplement.Utility.Builder.Property
+namespace AutoFrame.AutoImplement.Utility.Implementer.Property
 {
-    internal class DefaultPropertyBuilder : IPropertyBuilder
+    internal class DefaultPropertyImplementer : IPropertyImplementer
     {
         public void BuildProperty(TypeBuilder typeBuilder, PropertyInfo property)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using AutoFrame.AutoImplement.Exceptions;
 using AutoFrame.AutoImplement.Test.Resource.Basic;
 using AutoFrame.AutoImplement.Test.Resource.Defaults;
 using AutoFrame.AutoImplement.Utility;
@@ -104,6 +105,73 @@ namespace AutoFrame.AutoImplement.Test.Utility
 
             Assert.AreEqual(instance.DateTimeProp1, new DateTime(2016, 1, 1));
             Assert.AreEqual(instance.DateTimeProp2, new DateTime(2017,1,1,12,0,0));
+        }
+
+        [Test]
+        public void Test_IBasicSetInterface()
+        {
+            IBasicSetInterface instance0 = _implementer.Implement<IBasicSetInterface>();
+            Assert.AreEqual(instance0.PropertyBoolTrueFalse, false);
+            Assert.AreEqual(instance0.PropertyCharAlphabet, default(char));
+            Assert.AreEqual(instance0.PropertyIntBy10, 0);
+            Assert.AreEqual(instance0.PropertyStringAlphabet, null);
+
+            IBasicSetInterface instance1 = _implementer.Implement<IBasicSetInterface>("Set1");
+            Assert.AreEqual(instance1.PropertyBoolTrueFalse, true);
+            Assert.AreEqual(instance1.PropertyCharAlphabet, 'a');
+            Assert.AreEqual(instance1.PropertyIntBy10, 10);
+            Assert.AreEqual(instance1.PropertyStringAlphabet, "A");
+
+            IBasicSetInterface instance2 = _implementer.Implement<IBasicSetInterface>("Set2");
+            Assert.AreEqual(instance2.PropertyBoolTrueFalse, false);
+            Assert.AreEqual(instance2.PropertyCharAlphabet, 'b');
+            Assert.AreEqual(instance2.PropertyIntBy10, 20);
+            Assert.AreEqual(instance2.PropertyStringAlphabet, "AB");
+
+            IBasicSetInterface instance3 = _implementer.Implement<IBasicSetInterface>("Set3");
+            Assert.AreEqual(instance3.PropertyBoolTrueFalse, true);
+            Assert.AreEqual(instance3.PropertyCharAlphabet, 'c');
+            Assert.AreEqual(instance3.PropertyIntBy10, 30);
+            Assert.AreEqual(instance3.PropertyStringAlphabet, "ABC");
+
+            IBasicSetInterface instance4 = _implementer.Implement<IBasicSetInterface>("Set4");
+            Assert.AreEqual(instance4.PropertyBoolTrueFalse, false);
+            Assert.AreEqual(instance4.PropertyCharAlphabet, 'd');
+            Assert.AreEqual(instance4.PropertyIntBy10, 40);
+            Assert.AreEqual(instance4.PropertyStringAlphabet, "ABCD");
+
+            Assert.Throws<InvalidMemberSetKeyException>(() => _implementer.Implement<IBasicSetInterface>("invalidSet"));
+        }
+
+        [Test]
+        public void Test_INullableSetInterface()
+        {
+            INullableSetInterface instance0 = _implementer.Implement<INullableSetInterface>();
+            Assert.AreEqual(instance0.PropertyBoolTrueFalse, null);
+            Assert.AreEqual(instance0.PropertyCharAlphabet, null);
+            Assert.AreEqual(instance0.PropertyIntBy10, null);
+
+            INullableSetInterface instance1 = _implementer.Implement<INullableSetInterface>("Set1");
+            Assert.AreEqual(instance1.PropertyBoolTrueFalse, true);
+            Assert.AreEqual(instance1.PropertyCharAlphabet, 'a');
+            Assert.AreEqual(instance1.PropertyIntBy10, 10);
+
+            INullableSetInterface instance2 = _implementer.Implement<INullableSetInterface>("Set2");
+            Assert.AreEqual(instance2.PropertyBoolTrueFalse, false);
+            Assert.AreEqual(instance2.PropertyCharAlphabet, 'b');
+            Assert.AreEqual(instance2.PropertyIntBy10, 20);
+
+            INullableSetInterface instance3 = _implementer.Implement<INullableSetInterface>("Set3");
+            Assert.AreEqual(instance3.PropertyBoolTrueFalse, true);
+            Assert.AreEqual(instance3.PropertyCharAlphabet, 'c');
+            Assert.AreEqual(instance3.PropertyIntBy10, 30);
+
+            INullableSetInterface instance4 = _implementer.Implement<INullableSetInterface>("Set4");
+            Assert.AreEqual(instance4.PropertyBoolTrueFalse, false);
+            Assert.AreEqual(instance4.PropertyCharAlphabet, 'd');
+            Assert.AreEqual(instance4.PropertyIntBy10, 40);
+
+            Assert.Throws<InvalidMemberSetKeyException>(() => _implementer.Implement<INullableSetInterface>("invalidSet"));
         }
     }
 }

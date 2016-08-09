@@ -2,9 +2,9 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace AutoFrame.AutoImplement.Utility.Builder.Method
+namespace AutoFrame.AutoImplement.Utility.Implementer.Method
 {
-    internal class DefaultMethodBuilder : IMethodBuilder
+    internal class DefaultMethodImplementer : IMethodImplementer
     {
         public void BuildMethod(TypeBuilder typeBuilder, MethodInfo method)
         {

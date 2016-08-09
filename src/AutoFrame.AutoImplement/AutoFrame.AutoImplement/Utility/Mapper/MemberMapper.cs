@@ -2,11 +2,12 @@
 {
     internal class MemberMapper
     {
-        public MemberMapper(PropertyValueMapper propertyMapper)
+        public MemberMapper()
         {
-            PropertyMapper = propertyMapper;
+            PropertyMapper = new PropertyMapperStrategy();
         }
 
-        public PropertyValueMapper PropertyMapper { get; private set; }
+        public PropertyMapperStrategy PropertyMapper { get; }
+
     }
 }

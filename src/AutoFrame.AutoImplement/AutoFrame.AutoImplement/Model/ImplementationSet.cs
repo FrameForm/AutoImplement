@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoFrame.AutoImplement.Model
 {
@@ -8,48 +9,23 @@ namespace AutoFrame.AutoImplement.Model
         internal ImplementationSet(Type interfaceType)
         {
             InterfaceType = interfaceType;
-            KeyedImplementedTypes = new Dictionary<string, List<Type>>();
-            NonKeyedImplementedTypes = new HashSet<Type>();
+            PropertyMappingsCollections = new List<PropertyMappingSetCollection>();
         }
         
         public Type InterfaceType { get; private set; }
 
-        public Dictionary<string, List<Type>> KeyedImplementedTypes { get; } 
+        public Type Implementation { get; private set; }
 
-        public HashSet<Type> NonKeyedImplementedTypes { get; } 
+        public List<PropertyMappingSetCollection> PropertyMappingsCollections { get; }
 
-        public PropertyMappingSetCollection PropertyMappings { get; private set; }
-
-        public void AddImplementedType(Type implementation, string memberSetKey = null)
+        public IEnumerable<string> AvailableMemberSetKeys
         {
-            if (memberSetKey == null)
-            {
-                if (!NonKeyedImplementedTypes.Contains(implementation))
-                {
-                    NonKeyedImplementedTypes.Add(implementation);
-                }
-                else
-                {
-                    NonKeyedImplementedTypes.Add(implementation);
-                }
-            }
-            else
-            {
-                if (!KeyedImplementedTypes.ContainsKey(memberSetKey))
-                {
-                    KeyedImplementedTypes.Add(memberSetKey, new List<Type>());
-                    KeyedImplementedTypes[memberSetKey].Add(implementation);
-                }
-                else
-                {
-                    KeyedImplementedTypes[memberSetKey].Add(implementation);
-                }
-            }
+            get { return PropertyMappingsCollections.SelectMany(map => map.AvailableMemberSetKeys).Distinct(); }
         }
 
-        public void AddPropertyMappings(PropertyMappingSetCollection propertyMappings)
+        public void AddImplementedType(Type implementation)
         {
-            PropertyMappings = propertyMappings;
+            Implementation = implementation;
         }
     }
 }

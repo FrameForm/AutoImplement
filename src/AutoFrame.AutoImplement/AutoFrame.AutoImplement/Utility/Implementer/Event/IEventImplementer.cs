@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 
-namespace AutoFrame.AutoImplement.Utility.Builder.Event
+namespace AutoFrame.AutoImplement.Utility.Implementer.Event
 {
-    internal interface IEventBuilder
+    internal interface IEventImplementer
     {
         void BuildEvent(TypeBuilder typeBuilder, EventInfo myEvent);
     }

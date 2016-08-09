@@ -1,9 +1,9 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace AutoFrame.AutoImplement.Utility.Builder.Method
+namespace AutoFrame.AutoImplement.Utility.Implementer.Method
 {
-    internal interface IMethodBuilder
+    internal interface IMethodImplementer
     {
         void BuildMethod(TypeBuilder typeBuilder, MethodInfo method);
     }
