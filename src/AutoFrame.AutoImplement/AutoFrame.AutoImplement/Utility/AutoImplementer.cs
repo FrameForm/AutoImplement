@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using AutoFrame.AutoImplement.Interface;
+using System.Linq;
+using AutoFrame.AutoImplement.Exceptions;
+using AutoFrame.AutoImplement.Model;
+using FastMember;
 
 namespace AutoFrame.AutoImplement.Utility
 {
@@ -24,9 +26,11 @@ namespace AutoFrame.AutoImplement.Utility
         private static AutoImplementer _instance;
         private static IAutoImplementer _injected;
         private static readonly object InstanceLock = new object();
-        private static readonly ImplementationBuilder Builder = new ImplementationBuilder();
-
-        private static readonly Dictionary<Type, Type> TypeDictionary = new Dictionary<Type, Type>();
+        private static readonly ImplementationSetCreator Implementer = new ImplementationSetCreator();
+        private static readonly ImplementationSetCollection Implementations = new ImplementationSetCollection();
+        private static readonly object TypeAccessorLock = new object();
+        private static readonly Dictionary<Type, TypeAccessor> TypeAccessors = new Dictionary<Type, TypeAccessor>(); 
+        
 
         #endregion
 
@@ -78,43 +82,97 @@ namespace AutoFrame.AutoImplement.Utility
             return _instance;
         }
 
-        public T Implement<T>()
+        public T Implement<T>(string memberSetKey = null)
             where T: class
         {
-            Type implementation;
             var providedType = typeof (T);
 
             if (!providedType.IsPublic)
             {
                 throw new NotSupportedException("Interface must be public.");
             }
-            
 
-            if (!TypeDictionary.ContainsKey(providedType))
+            var implementationSet = GetImplementationSet<T>(providedType);
+
+            var implementation = implementationSet.Implementation;
+
+            var instance =  Activator.CreateInstance(implementation) as T;
+
+            FinalizeMappings(instance, implementationSet, memberSetKey);
+
+            return instance;
+        }
+        
+
+        #endregion
+
+        #region Private Methods
+
+        private ImplementationSet GetImplementationSet<T>(Type providedType)
+            where T : class
+        {
+
+            ImplementationSet implementationSet;
+
+            if (!Implementations.HasBeenImplemented(providedType))
             {
                 lock (InstanceLock)
                 {
-                    if (!TypeDictionary.ContainsKey(providedType))
+                    if (!Implementations.HasBeenImplemented(providedType))
                     {
-                        implementation = Builder.BuildImplementation(providedType);
+                        implementationSet = Implementer.CreateImplementationSet<T>();
 
-                        TypeDictionary.Add(providedType, implementation);
+                        Implementations.AddImplementationSet(providedType, implementationSet, true);
                     }
                     else
                     {
-                        implementation = TypeDictionary[providedType];
+                        implementationSet = Implementations.GetImplementationSet(providedType);
                     }
                 }
             }
             else
             {
-                implementation = TypeDictionary[providedType];
+                implementationSet = Implementations.GetImplementationSet(providedType);
             }
 
-            return Activator.CreateInstance(implementation) as T;
-
+            return implementationSet;
         }
 
+        private void FinalizeMappings<T>(T instance, ImplementationSet implementationSet, string memberSetKey)
+        {
+            var t = typeof(T);
+
+            if (memberSetKey != null &&
+                implementationSet.AvailableMemberSetKeys.All(key => key != memberSetKey))
+            {
+                throw new InvalidMemberSetKeyException(memberSetKey, implementationSet.AvailableMemberSetKeys.ToArray(), t);
+            }
+            
+            if (!TypeAccessors.ContainsKey(t))
+            {
+                lock (TypeAccessorLock)
+                {
+                    if (!TypeAccessors.ContainsKey(t))
+                    {
+                        TypeAccessors.Add(t, TypeAccessor.Create(t));
+                    }
+                }
+            }
+            
+            var accessor = TypeAccessors[t];
+
+            foreach (var collection in implementationSet.PropertyMappingsCollections)
+            {
+                var set = collection.GetPropertyMappingSet(memberSetKey);
+
+                if (set == null) continue;
+
+                foreach (var mapping in set.Mappings)
+                {
+                    mapping.PropertyAssignment(accessor, instance);
+                }
+            }
+        }
 
         #endregion
     }

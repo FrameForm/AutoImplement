@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFrame.AutoImplement", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFrame.AutoImplement.Test", "AutoFrame.AutoImplement.Test\AutoFrame.AutoImplement.Test.csproj", "{7520B194-2F3C-4E62-AF8B-5EA82E558943}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastMember", "..\..\lib\fast-member\FastMember\FastMember.csproj", "{3681AB91-8F99-41BE-93C6-FCE3C49704DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoFrame.Core", "..\..\lib\AutoFrame.Core\src\AutoFrame.Core\AutoFrame.Core\AutoFrame.Core.csproj", "{8E714247-8AAB-40D8-B36E-DF317E8E6B49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7520B194-2F3C-4E62-AF8B-5EA82E558943}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3681AB91-8F99-41BE-93C6-FCE3C49704DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E714247-8AAB-40D8-B36E-DF317E8E6B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E714247-8AAB-40D8-B36E-DF317E8E6B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E714247-8AAB-40D8-B36E-DF317E8E6B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E714247-8AAB-40D8-B36E-DF317E8E6B49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

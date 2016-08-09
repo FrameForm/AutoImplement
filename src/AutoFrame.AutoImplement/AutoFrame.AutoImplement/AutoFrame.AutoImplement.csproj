@@ -43,13 +43,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attribute\ImplementationContractAttribute.cs" />
-    <Compile Include="Attribute\ImplementationContractPropertyAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementIndexerAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementInterfaceAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementEventAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementMethodAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementDateTimePropertyAttribute.cs" />
+    <Compile Include="Attribute\AutoImplementPropertyAttribute.cs" />
+    <Compile Include="Exceptions\DuplicateMemberSetKeyException.cs" />
+    <Compile Include="Exceptions\InvalidPropertyDefaultTypeException.cs" />
+    <Compile Include="Exceptions\InvalidMemberSetKeyException.cs" />
+    <Compile Include="Exceptions\UnmappedMemberException.cs" />
     <Compile Include="Extension\DictionaryExtensions.cs" />
-    <Compile Include="Interface\IAutoImplementer.cs" />
+    <Compile Include="Model\PropertyMappingSetCollection.cs" />
+    <Compile Include="Model\PropertyMappingSet.cs" />
+    <Compile Include="Utility\Implementer\PropertyImplementationStrategy.cs" />
+    <Compile Include="Utility\Implementer\MethodImplementationStrategy.cs" />
+    <Compile Include="Utility\Implementer\EventImplementationStrategy.cs" />
+    <Compile Include="Utility\Implementer\Event\OnEventImplementer.cs" />
+    <Compile Include="Utility\IAutoImplementer.cs" />
+    <Compile Include="Model\ImplementationSet.cs" />
+    <Compile Include="Model\Implementation.cs" />
+    <Compile Include="Model\ImplementationSetCollection.cs" />
+    <Compile Include="Model\PropertyMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\AutoImplementer.cs" />
-    <Compile Include="Utility\ImplementationBuilder.cs" />
+    <Compile Include="Extension\DefaultValueExtensions.cs" />
+    <Compile Include="Utility\Implementer\Event\DefaultEventImplementer.cs" />
+    <Compile Include="Utility\Implementer\Event\IEventImplementer.cs" />
+    <Compile Include="Utility\Implementer\MemberImplementer.cs" />
+    <Compile Include="Utility\Implementer\Method\DefaultMethodImplementer.cs" />
+    <Compile Include="Utility\Implementer\Method\IMethodImplementer.cs" />
+    <Compile Include="Utility\Implementer\Property\DefaultPropertyImplementer.cs" />
+    <Compile Include="Utility\Implementer\Property\IPropertyImplementer.cs" />
+    <Compile Include="Utility\ImplementationSetCreator.cs" />
+    <Compile Include="Utility\Mapper\MemberMapper.cs" />
+    <Compile Include="Utility\Mapper\PropertyMapperStrategy.cs" />
+    <Compile Include="Utility\Mapper\Property\IPropertyAttributeMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\MultipleDefaultValuePropertyMapper.cs" />
+    <Compile Include="Utility\Mapper\Property\RandomTypeValuePropertyMapper.cs" />
+    <Compile Include="Utility\Mapper\Random\IRandomValueGenerator.cs" />
+    <Compile Include="Utility\Mapper\Property\SingleDefaultValuePropertyMapper.cs" />
+    <Compile Include="Utility\Mapper\Random\RandomElementSelector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\lib\AutoFrame.Core\src\AutoFrame.Core\AutoFrame.Core\AutoFrame.Core.csproj">
+      <Project>{8E714247-8AAB-40D8-B36E-DF317E8E6B49}</Project>
+      <Name>AutoFrame.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\fast-member\FastMember\FastMember.csproj">
+      <Project>{3681ab91-8f99-41be-93c6-fce3c49704db}</Project>
+      <Name>FastMember</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utility\Implementer\Indexer\" />
+    <Folder Include="Utility\Mapper\Event\" />
+    <Folder Include="Utility\Mapper\Method\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
