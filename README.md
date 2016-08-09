@@ -112,16 +112,16 @@ Interfaces with generic type parameters are supported, including constraints.
 
 
 #### Roadmap
-- [x] Gettable/settable properties * v0.0.1 *
-- [x] Default values for non Nullable<> properties * v0.0.2 *
-- [x] Default values for Nullable<> properties * v0.0.2 *
-- [x] DateTime default values for properties * v0.0.2 *
-- [x] Multiple sets of property default values, identified by key * v0.0.2 *
-- [x] Methods (void or default value returns) * v0.0.1 *
+- [x] Gettable/settable properties *v0.0.1*
+- [x] Default values for non Nullable<> properties *v0.0.2*
+- [x] Default values for Nullable<> properties *v0.0.2*
+- [x] DateTime default values for properties *v0.0.2*
+- [x] Multiple sets of property default values, identified by key *v0.0.2*
+- [x] Methods (void or default value returns) *v0.0.1*
 - [ ] Methods (Action/Func execution)
 - [ ] Events
 - [ ] Events (OnEvent() via Action)
-- [x] Generic interfaces * v0.0.1 *
+- [x] Generic interfaces *v0.0.1*
 - [ ] Generic methods
 - [ ] Indexers
 - [ ] Indexer default values defined by array
