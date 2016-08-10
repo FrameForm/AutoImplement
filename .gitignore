@@ -8,7 +8,9 @@
 /src/AutoFrame.AutoImplement/obj/Debug
 /src/AutoFrame.AutoImplement/AutoFrame.AutoImplement/.vs/AutoFrame.AutoImplement/v14
 /src/AutoFrame.AutoImplement/.vs/AutoFrame.AutoImplement/v14
-/**/obj
-/**/bin
+/src/**/obj
+/src/**/bin
+/lib/**/obj
+/lib/**/bin
 /src/AutoFrame.AutoImplement/packages
 /**/nppBackup

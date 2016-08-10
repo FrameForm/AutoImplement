@@ -124,7 +124,8 @@ Interfaces with generic type parameters are supported, including constraints.
 - [x] Generic interfaces *v0.0.1*
 - [ ] Generic methods
 - [ ] Indexers
-- [ ] Indexer default values defined by array
-- [ ] Colletion property defaults defined by array
+- [ ] Indexer starting values defined by array
+- [ ] Indexer definable backing collection and size
+- [ ] Collection property defaults defined by array
 - [ ] Randomized default value selection within provided values
 - [ ] Randomized default value generation
